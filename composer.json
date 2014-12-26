@@ -1,0 +1,19 @@
+{
+    "name": "sateler/yii2-excelview",
+    "description": "Export excel",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Felipe Sateler",
+            "email": "fsateler@gmail.com"
+        }
+    ],
+    "require": {
+        "kartik-v/yii2-export": "~1.0"
+    }
+    "autoload": {
+        "psr-4": {
+            "sateler\\": ""
+        }
+    }
+}
