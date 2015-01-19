@@ -69,7 +69,12 @@ class ExcelMenu extends ExportMenu {
 	function run() {
 		// We need this because this is a widget within a widget
 		// Thus there has been an extra ob_start()
-		ob_end_clean();
+        $download = !empty($_POST) &&
+            !empty($_POST[$this->exportRequestParam]) &&
+            $_POST[$this->exportRequestParam];
+        if ($download) {
+            ob_end_clean();
+        }
 		return parent::run();
 	}
 }
