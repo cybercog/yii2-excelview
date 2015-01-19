@@ -39,9 +39,14 @@ class ExcelView extends GridView {
     private $_fullExport;
     
     public function __construct($config = array()) {
-        parent::__construct($config);
         $this->_columns = $config['columns'];
-	$this->_fullExport = ExcelMenu::widget([
+        parent::__construct($config);
+    }
+    
+    function init() {
+        parent::init();
+        if(!isset($this->replaceTags['{fullExport}'])) {
+            $this->replaceTags['{fullExport}'] = ExcelMenu::widget([
                     'dataProvider' => $this->dataProvider,
                     'filterModel' => $this->filterModel,
                     'columns' => $this->_columns,
@@ -52,20 +57,17 @@ class ExcelView extends GridView {
 		    'filename' => $this->filename ?: $this->view->title ?: 'grid-export',
 		    'enableFormatter' => false,
                 ]);
-    }
-    
-    function init() {
-        parent::init();
-        if(!isset($this->replaceTags['{fullExport}'])) {
-            $this->replaceTags['{fullExport}'] = function ($self) {
-                /** @var $self ExcelView */
-                return $self->_fullExport;
-            };
         }
     }
 }
 
 class ExcelMenu extends ExportMenu {
+    
+    public $showColumnSelector = false;
+
+
+    public $exportFormView = '@vendor/kartik-v/yii2-export/views/_form';
+    public $exportColumnsView = '@vendor/kartik-v/yii2-export/views/_columns';
 	function run() {
 		// We need this because this is a widget within a widget
 		// Thus there has been an extra ob_start()
